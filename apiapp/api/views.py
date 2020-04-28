@@ -18,8 +18,8 @@ class BurgerDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BurgerSerializer
 
 class IngredientList(generics.ListCreateAPIView):
-    queryset = Burger.objects.all()
-    serializer_class = BurgerSerializer
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
 
 
 class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
