@@ -11,5 +11,5 @@ class BurgerSerializer(serializers.ModelSerializer):
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Burger
+        model = Ingredient
         fields = ['id', 'name', 'description']
