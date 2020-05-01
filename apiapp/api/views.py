@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from apiapp.models import Burger, Ingredient
 from rest_framework import generics
 from django.http import Http404
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 from apiapp.api.serializers import BurgerSerializer, IngredientSerializer
@@ -41,7 +43,6 @@ class BurgerDetail(APIView):
         return Response(serializer.data)
 
     def patch(self, request, pk, format=None):
-        print("Entro a put")
         burger = self.get_object(pk)
         serializer = BurgerSerializer(burger, data=request.data)
         if serializer.is_valid():
@@ -59,6 +60,7 @@ class IngredientList(APIView):
     List all burgers, or create a new burger.
     """
     def get(self, request, format=None):
+        print("Entro a Get")
         ingredients = Ingredient.objects.all()
         serializer =  IngredientSerializer(ingredients, many=True)
         return Response(serializer.data)
@@ -75,6 +77,7 @@ class IngredientDetail(APIView):
     Retrieve, update or delete a snippet instance.
     """
     def get_object(self, pk):
+        print("Entro a get specific")
         try:
             return Ingredient.objects.get(pk=pk)
         except Burger.DoesNotExist:
@@ -85,7 +88,8 @@ class IngredientDetail(APIView):
         serializer = IngredientSerializer(ingredient)
         return Response(serializer.data)
 
-    def patch(self, request, pk, format=None):
+    @csrf_exempt
+    def put(self, request, pk, format=None):
         ingredient = self.get_object(pk)
         serializer = IngredientSerializer(ingredient, data=request.data)
         if serializer.is_valid():
