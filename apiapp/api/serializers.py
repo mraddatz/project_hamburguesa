@@ -11,7 +11,7 @@ class CustomIngredientSerializer(IngredientSerializer):
 
     def to_representation(self, instance):
         data = super(IngredientSerializer, self).to_representation(instance)
-        base_url = "http://localhost:8000/api/ingrediente/"
+        base_url = "https://project-hamburguesa.herokuapp.com/api/ingrediente/"
         path = base_url + str(data['id'])
         return { 'path' : path }
 

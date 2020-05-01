@@ -5,7 +5,6 @@ from rest_framework.views import APIView
 from apiapp.models import Burger, Ingredient
 from rest_framework import generics
 from django.http import Http404
-from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -88,8 +87,7 @@ class IngredientDetail(APIView):
         serializer = IngredientSerializer(ingredient)
         return Response(serializer.data)
 
-    @csrf_exempt
-    def put(self, request, pk, format=None):
+    def patch(self, request, pk, format=None):
         ingredient = self.get_object(pk)
         serializer = IngredientSerializer(ingredient, data=request.data)
         if serializer.is_valid():
