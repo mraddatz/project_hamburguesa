@@ -5,7 +5,7 @@ from apiapp.models import Burger, Ingredient
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'nombre', 'descripcion']
 
 class CustomIngredientSerializer(IngredientSerializer):
 
@@ -18,11 +18,11 @@ class CustomIngredientSerializer(IngredientSerializer):
 
 class BurgerSerializer(serializers.ModelSerializer):
 
-    ingredients = CustomIngredientSerializer(many = True, required = False)
+    ingredientes = CustomIngredientSerializer(many = True, required = False)
 
     class Meta:
         model = Burger
-        fields = ['id', 'name', 'price', 'description', 'image', 'ingredients']
+        fields = ['id', 'nombre', 'precio', 'descripcion', 'imagen', 'ingredientes']
 
 
 

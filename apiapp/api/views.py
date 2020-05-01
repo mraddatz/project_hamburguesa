@@ -137,7 +137,7 @@ class BurgerIngredientDetail(APIView):
         try:
             burger = self.get_burger(burger_pk)
             ingredient = self.get_ingredient(ingredient_pk)
-            burger.ingredients.add(ingredient)
+            burger.ingredientes.add(ingredient)
             return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -146,7 +146,7 @@ class BurgerIngredientDetail(APIView):
         try:
             burger = self.get_burger(burger_pk)
             ingredient = self.get_ingredient(ingredient_pk)
-            burger.ingredients.remove(ingredient)
+            burger.ingredientes.remove(ingredient)
             return Response(status=status.HTTP_201_CREATED)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)

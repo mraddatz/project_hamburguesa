@@ -16,25 +16,25 @@ class Migration(migrations.Migration):
             name='Ingredient',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128)),
-                ('description', models.CharField(max_length=128)),
+                ('nombre', models.CharField(max_length=128)),
+                ('descripcion', models.CharField(max_length=128)),
             ],
             options={
-                'ordering': ['name'],
+                'ordering': ['nombre'],
             },
         ),
         migrations.CreateModel(
             name='Burger',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128)),
-                ('price', models.IntegerField(validators=[django.core.validators.MinValueValidator(1)])),
-                ('description', models.CharField(max_length=256)),
-                ('image', models.CharField(max_length=128)),
-                ('ingredients', models.ManyToManyField(blank=True, related_name='hamburgers', to='apiapp.Ingredient')),
+                ('nombre', models.CharField(max_length=128)),
+                ('precio', models.IntegerField(validators=[django.core.validators.MinValueValidator(1)])),
+                ('descripcion', models.CharField(max_length=256)),
+                ('imagen', models.CharField(max_length=128)),
+                ('ingredientes', models.ManyToManyField(blank=True, related_name='hamburgers', to='apiapp.Ingredient')),
             ],
             options={
-                'ordering': ['name'],
+                'ordering': ['nombre'],
             },
         ),
     ]
