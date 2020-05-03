@@ -50,9 +50,12 @@ class BurgerDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        burger = self.get_object(pk)
-        burger.delete()
-        return Response(status=status.HTTP_200_OK)
+        try:
+            burger = self.get_object(pk)
+            burger.delete()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            Response(status=status.HTTP_404_NOT_FOUND)
 
 class IngredientList(APIView):
     """
@@ -96,13 +99,17 @@ class IngredientDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        ingredient = self.get_object(pk)
+        try:
+            ingredient = self.get_object(pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         if (ingredient.hamburguesas.all()):
             return Response(status=status.HTTP_409_CONFLICT)
         try:
             ingredient.delete()
-        except:
             return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 # class BurgerList(generics.ListCreateAPIView):
 #     queryset = Burger.objects.all()
@@ -157,6 +164,8 @@ class BurgerIngredientDetail(APIView):
         try:
             burger = self.get_burger(burger_pk)
             ingredient = self.get_ingredient(ingredient_pk)
+            if ingredient not in burger.ingredientes.all():
+                return Response(status=status.HTTP_404_NOT_FOUND)
             burger.ingredientes.remove(ingredient)
             return Response(status=status.HTTP_200_OK)
         except:
