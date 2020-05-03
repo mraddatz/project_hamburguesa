@@ -79,7 +79,7 @@ class IngredientDetail(APIView):
         print("Entro a get specific")
         try:
             return Ingredient.objects.get(pk=pk)
-        except Burger.DoesNotExist:
+        except Ingredient.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
@@ -140,7 +140,7 @@ class BurgerIngredientDetail(APIView):
             burger = self.get_burger(burger_pk)
             ingredient = self.get_ingredient(ingredient_pk)
             burger.ingredientes.add(ingredient)
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_201_created)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
  
