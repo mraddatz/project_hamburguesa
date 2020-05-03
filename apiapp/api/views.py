@@ -97,8 +97,14 @@ class IngredientDetail(APIView):
 
     def delete(self, request, pk, format=None):
         ingredient = self.get_object(pk)
-        ingredient.delete()
-        return Response(status=status.HTTP_200_OK)
+        print("Van las hamburguesas de los ingredientes")
+        print(ingredient.hamburguesas)
+        if ingredient.hamburguesas:
+            return Response(status=status.HTTP_409_CONFLICT)
+        try:
+            ingredient.delete()
+        except:
+            return Response(status=status.HTTP_200_OK)
 
 # class BurgerList(generics.ListCreateAPIView):
 #     queryset = Burger.objects.all()
@@ -136,12 +142,17 @@ class BurgerIngredientDetail(APIView):
             raise Http404
 
     def put(self, request, burger_pk, ingredient_pk, format=None):
+        print("Entro a PUT")
         try:
             burger = self.get_burger(burger_pk)
+            print("Encontro Burger")
             ingredient = self.get_ingredient(ingredient_pk)
+            print("Encontro Ingredient")
             burger.ingredientes.add(ingredient)
-            return Response(status=status.HTTP_201_created)
+            print("Asocio Ingredient Con hamburguesa")
+            return Response(status=status.HTTP_201_CREATED)
         except:
+            print("Va a retornar 400 Bad Request")
             return Response(status=status.HTTP_400_BAD_REQUEST)
  
     def delete(self, request, burger_pk, ingredient_pk, format=None):
@@ -149,6 +160,6 @@ class BurgerIngredientDetail(APIView):
             burger = self.get_burger(burger_pk)
             ingredient = self.get_ingredient(ingredient_pk)
             burger.ingredientes.remove(ingredient)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
