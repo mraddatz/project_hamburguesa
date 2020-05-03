@@ -97,9 +97,7 @@ class IngredientDetail(APIView):
 
     def delete(self, request, pk, format=None):
         ingredient = self.get_object(pk)
-        print("Van las hamburguesas de los ingredientes")
-        print(ingredient.hamburguesas)
-        if ingredient.hamburguesas:
+        if (ingredient.hamburguesas.all()):
             return Response(status=status.HTTP_409_CONFLICT)
         try:
             ingredient.delete()
