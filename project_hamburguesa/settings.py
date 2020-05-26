@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'apiapp',
+    'register.apps.RegisterConfig',
     'rest_framework',
 ]
 
@@ -132,9 +134,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
+LOGIN_REDIRECT_URL = "/"
+
+LANGUAGE_CODE = 'es-CL'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
 del DATABASES['default']['OPTIONS']['sslmode']
+

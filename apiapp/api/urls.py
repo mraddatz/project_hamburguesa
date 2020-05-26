@@ -12,6 +12,8 @@ urlpatterns = [
     path( 'ingrediente', views.IngredientList.as_view()),
     path( 'ingrediente/<int:pk>', views.IngredientDetail.as_view()),
     path( 'hamburguesa/<int:burger_pk>/ingrediente/<int:ingredient_pk>', views.BurgerIngredientDetail.as_view()),
+    path( 'notify', views.notify, name='notify')
+
 
 ]
 

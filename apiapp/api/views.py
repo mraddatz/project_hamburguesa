@@ -5,10 +5,24 @@ from rest_framework.views import APIView
 from apiapp.models import Burger, Ingredient
 from rest_framework import generics
 from django.http import Http404
+from django.views.decorators.csrf import csrf_exempt
 
 
 
 from apiapp.api.serializers import BurgerSerializer, IngredientSerializer
+
+
+@csrf_exempt
+@api_view(['POST'])
+def notify(request):
+    print("Llego request de notify")
+    print(request)
+    print(type(request))
+    print(request.data)
+    return Response(status=status.HTTP_200_OK)
+
+
+
 
 class BurgerList(APIView):
     """

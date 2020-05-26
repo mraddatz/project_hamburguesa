@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apiapp import views
-
+from apiapp import views as apiviews
+from register import views as registerviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('api/', include('apiapp.api.urls', 'burger_api'))
+    path('register/', registerviews.register, name="register"),
+    path('', apiviews.index, name='index'),
+    path('getbanks/', apiviews.banks, name='banks'),
+    path('test/', apiviews.test, name='banks'),
+    path('return/', apiviews.retorna, name='retorna'),
+    path('api/', include('apiapp.api.urls', 'burger_api')),
+    path('', include("django.contrib.auth.urls")),
+
 ]
